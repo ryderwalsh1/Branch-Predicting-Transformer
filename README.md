@@ -27,6 +27,9 @@ This project implements a novel branch predictor using a transformer architectur
 ├── PIN Dumps/                           # Directory containing instruction traces
 │   ├── *_ins_trunc.out                  # Instruction trace files
 │   └── *_reg_trunc.out                  # Register dump files
+├── matrix_mult.v                        # Verilog matrix multiplier module
+├── matrix_mult_tb.v                     # Testbench for matrix multiplier
+├── Makefile                             # Build automation for Verilog
 └── README.md                            # This file
 ```
 
@@ -136,12 +139,47 @@ Unlike traditional branch predictors that operate at fetch stage, our transforme
 3. **Bit Resolution Reduction**: Use lower precision weights to save memory
 4. **Loop Unrolling**: Predict multiple branches when confident
 
+## Hardware Implementation
+
+### Matrix Multiplication Accelerator
+
+We've developed a parameterizable Verilog matrix multiplier module for potential hardware acceleration of the transformer's attention mechanism:
+
+#### Features
+- **Parameterizable dimensions**: Supports any M×K × K×N matrix multiplication
+- **Fixed-point arithmetic**: 16-bit data with 8 fractional bits
+- **Sequential design**: One MAC operation per cycle
+- **Memory efficient**: Internal storage for all matrices
+
+#### Usage
+```bash
+# Compile and run testbench
+make all
+
+# View waveforms
+make view
+
+# Clean generated files
+make clean
+```
+
+#### Example Instantiation
+For attention computation with context size 15:
+```verilog
+// Q×K^T multiplication
+matrix_mult #(.M(15), .N(15), .K(64)) qkt_mult (...);
+
+// (Q×K^T)×V multiplication  
+matrix_mult #(.M(15), .N(64), .K(15)) attn_mult (...);
+```
+
 ## Limitations and Future Work
 
 - Current latency may be too high for direct hardware implementation
 - Limited to sequences of 20 instructions
 - Requires pre-training on representative workloads
 - Memory footprint (~1MB) larger than traditional predictors
+- Matrix multiplier currently sequential (future: systolic array)
 
 ## References
 
