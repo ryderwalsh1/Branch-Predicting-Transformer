@@ -1,0 +1,46 @@
+[*]
+[*] GTKWave Analyzer v3.3.107 (w)1999-2020 BSI
+[*] Wed Jul 30 06:00:12 2025
+[*]
+[dumpfile] "/Users/ryderwalsh/Documents/Classes/Spring25/ECE475/BPT Project/matrix_mult_tb.vcd"
+[dumpfile_mtime] "Wed Jul 30 05:51:46 2025"
+[dumpfile_size] 2781863
+[savefile] "/Users/ryderwalsh/Documents/Classes/Spring25/ECE475/BPT Project/template.gtkw"
+[timestart] 0
+[size] 1172 799
+[pos] -1 -1
+*-17.000000 49100 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] matrix_mult_tb.
+[sst_width] 193
+[signals_width] 176
+[sst_expanded] 1
+[sst_vpaned_height] 228
+@28
+matrix_mult_tb.clk
+[color] 3
+matrix_mult_tb.dut.state[1:0]
+[color] 3
+matrix_mult_tb.dut.next_state[1:0]
+@22
+[color] 2
+matrix_mult_tb.dut.b_load_count[3:0]
+@28
+[color] 2
+matrix_mult_tb.dut.b_valid
+@24
+[color] 2
+matrix_mult_tb.dut.a_load_count[4:0]
+@28
+[color] 2
+matrix_mult_tb.dut.a_valid
+@420
+[color] 7
+matrix_mult_tb.dut.M
+@421
+[color] 7
+matrix_mult_tb.dut.K
+@420
+[color] 7
+matrix_mult_tb.dut.N
+[pattern_trace] 1
+[pattern_trace] 0
