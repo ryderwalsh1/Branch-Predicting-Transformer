@@ -18,6 +18,9 @@ WAVEFORM = $(TOP).vcd
 # Default target
 all: compile run
 
+# Compile and run with logging
+all-log: compile run-log
+
 # Compile the design and testbench
 compile: $(SOURCES) $(TESTBENCH)
 	$(IVERILOG) $(VFLAGS) -o $(EXECUTABLE) $(TESTBENCH) $(SOURCES)
@@ -25,6 +28,10 @@ compile: $(SOURCES) $(TESTBENCH)
 # Run the simulation
 run: $(EXECUTABLE)
 	$(VVP) $(EXECUTABLE)
+
+# Run the simulation and save output to file
+run-log: $(EXECUTABLE)
+	$(VVP) $(EXECUTABLE) | tee matrix_mult_results.txt
 
 # Open waveform viewer
 wave: $(WAVEFORM)
@@ -42,8 +49,10 @@ view: compile run wave
 help:
 	@echo "Available targets:"
 	@echo "  make all     - Compile and run simulation (default)"
+	@echo "  make all-log - Compile and run with output saved to file"
 	@echo "  make compile - Compile Verilog files"
 	@echo "  make run     - Run simulation"
+	@echo "  make run-log - Run simulation and save output to matrix_mult_results.txt"
 	@echo "  make wave    - Open waveform viewer"
 	@echo "  make view    - Compile, run, and view waveforms"
 	@echo "  make clean   - Remove generated files"
