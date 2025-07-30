@@ -156,12 +156,25 @@ We've developed a parameterizable Verilog matrix multiplier module for potential
 # Compile and run testbench
 make all
 
+# Compile and run with output logging
+make all-log
+
 # View waveforms
 make view
 
 # Clean generated files
 make clean
+
+# Run with custom logging script
+./run_with_log.sh                    # Saves to matrix_mult_results.txt
+./run_with_log.sh custom_output.txt  # Saves to custom filename
 ```
+
+#### Output Logging
+The testbench output can be captured without modifying the Verilog code:
+- `make run-log`: Runs simulation and saves output to `matrix_mult_results.txt`
+- `run_with_log.sh`: Wrapper script that creates timestamped logs and provides pass/fail summary
+- Direct capture: `vvp matrix_mult_tb.vvp > output.txt 2>&1`
 
 #### Example Instantiation
 For attention computation with context size 15:
