@@ -163,13 +163,14 @@ module matrix_mult_tb;
     
     // Load matrix A into DUT
     task load_matrix_a;
+        integer a_i, a_j;
         begin
-            for (i = 0; i < M; i = i + 1) begin
-                for (j = 0; j < K; j = j + 1) begin
+            for (a_i = 0; a_i < M; a_i = a_i + 1) begin
+                for (a_j = 0; a_j < K; a_j = a_j + 1) begin
                     @(posedge clk);
-                    a_data = test_a[i][j];
-                    a_row = i;
-                    a_col = j;
+                    a_data = test_a[a_i][a_j];
+                    a_row = a_i;
+                    a_col = a_j;
                     a_valid = 1;
                 end
             end
@@ -180,13 +181,14 @@ module matrix_mult_tb;
     
     // Load matrix B into DUT
     task load_matrix_b;
+        integer b_i, b_j;
         begin
-            for (i = 0; i < K; i = i + 1) begin
-                for (j = 0; j < N; j = j + 1) begin
+            for (b_i = 0; b_i < K; b_i = b_i + 1) begin
+                for (b_j = 0; b_j < N; b_j = b_j + 1) begin
                     @(posedge clk);
-                    b_data = test_b[i][j];
-                    b_row = i;
-                    b_col = j;
+                    b_data = test_b[b_i][b_j];
+                    b_row = b_i;
+                    b_col = b_j;
                     b_valid = 1;
                 end
             end
