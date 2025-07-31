@@ -52,6 +52,10 @@ module matrix_mult #(
     // Accumulator for dot product (extra bits for overflow)
     reg signed [2*DATA_WIDTH+$clog2(K)-1:0] accumulator;
     
+    // Wire for final sum calculation
+    wire signed [2*DATA_WIDTH+$clog2(K)-1:0] final_sum;
+    assign final_sum = accumulator + (mat_a[comp_row][K-1] * mat_b[K-1][comp_col]);
+    
     // Load counters
     reg [$clog2(M*K):0] a_load_count;
     reg [$clog2(K*N):0] b_load_count;
@@ -130,9 +134,9 @@ module matrix_mult #(
                     comp_k <= comp_k + 1;
                 end else begin
                     // Final accumulation and store result
-                    accumulator <= accumulator + (mat_a[comp_row][K-1] * mat_b[K-1][comp_col]);
-                    // Scale back to original precision
-                    mat_c[comp_row][comp_col] <= accumulator[DATA_WIDTH+FRAC_WIDTH-1:FRAC_WIDTH];
+                    accumulator <= final_sum; // not strictly necessary, but good for consistency
+                    // Scale back to original precision using the complete sum
+                    mat_c[comp_row][comp_col] <= final_sum[DATA_WIDTH+FRAC_WIDTH-1:FRAC_WIDTH];
                     
                     // Move to next element
                     comp_k <= 0;
