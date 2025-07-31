@@ -146,6 +146,87 @@ module matrix_mult_tb;
         end
     endtask
     
+    // Test Case 4: Square matrix with negative values (3x3 * 3x2)
+    task init_test_case_4;
+        begin
+            $display("Test Case 4: Square matrix with negative values");
+            // Matrix A with negative values
+            test_a[0][0] = to_fixed(-2.0); test_a[0][1] = to_fixed(3.0);  test_a[0][2] = to_fixed(-1.0);
+            test_a[1][0] = to_fixed(4.0);  test_a[1][1] = to_fixed(-5.0); test_a[1][2] = to_fixed(2.0);
+            test_a[2][0] = to_fixed(-1.0); test_a[2][1] = to_fixed(2.0);  test_a[2][2] = to_fixed(-3.0);
+            test_a[3][0] = to_fixed(0.0);  test_a[3][1] = to_fixed(0.0);  test_a[3][2] = to_fixed(0.0);
+            
+            // Matrix B with mixed values
+            test_b[0][0] = to_fixed(1.0);  test_b[0][1] = to_fixed(-2.0);
+            test_b[1][0] = to_fixed(-3.0); test_b[1][1] = to_fixed(4.0);
+            test_b[2][0] = to_fixed(2.0);  test_b[2][1] = to_fixed(-1.0);
+        end
+    endtask
+    
+    // Test Case 5: Single element matrices (1x1 * 1x1)
+    task init_test_case_5;
+        begin
+            $display("Test Case 5: Single element matrices (1x1)");
+            // Only use top-left corner for 1x1 multiplication
+            test_a[0][0] = to_fixed(-3.5); test_a[0][1] = to_fixed(0.0); test_a[0][2] = to_fixed(0.0);
+            test_a[1][0] = to_fixed(0.0);  test_a[1][1] = to_fixed(0.0); test_a[1][2] = to_fixed(0.0);
+            test_a[2][0] = to_fixed(0.0);  test_a[2][1] = to_fixed(0.0); test_a[2][2] = to_fixed(0.0);
+            test_a[3][0] = to_fixed(0.0);  test_a[3][1] = to_fixed(0.0); test_a[3][2] = to_fixed(0.0);
+            
+            test_b[0][0] = to_fixed(2.25); test_b[0][1] = to_fixed(0.0);
+            test_b[1][0] = to_fixed(0.0);  test_b[1][1] = to_fixed(0.0);
+            test_b[2][0] = to_fixed(0.0);  test_b[2][1] = to_fixed(0.0);
+        end
+    endtask
+    
+    // Test Case 6: Vector multiplication (1x3 * 3x1) = scalar
+    task init_test_case_6;
+        begin
+            $display("Test Case 6: Vector multiplication (row x column)");
+            // Row vector (1x3) stored in first row of A
+            test_a[0][0] = to_fixed(2.0); test_a[0][1] = to_fixed(-1.5); test_a[0][2] = to_fixed(3.0);
+            test_a[1][0] = to_fixed(0.0); test_a[1][1] = to_fixed(0.0);  test_a[1][2] = to_fixed(0.0);
+            test_a[2][0] = to_fixed(0.0); test_a[2][1] = to_fixed(0.0);  test_a[2][2] = to_fixed(0.0);
+            test_a[3][0] = to_fixed(0.0); test_a[3][1] = to_fixed(0.0);  test_a[3][2] = to_fixed(0.0);
+            
+            // Column vector (3x1) stored in first column of B
+            test_b[0][0] = to_fixed(1.0);  test_b[0][1] = to_fixed(0.0);
+            test_b[1][0] = to_fixed(4.0);  test_b[1][1] = to_fixed(0.0);
+            test_b[2][0] = to_fixed(-2.0); test_b[2][1] = to_fixed(0.0);
+        end
+    endtask
+    
+    // Test Case 7: Large values near overflow boundary
+    task init_test_case_7;
+        begin
+            $display("Test Case 7: Large values near overflow");
+            // Using values that will test the accumulator width
+            test_a[0][0] = to_fixed(15.0);  test_a[0][1] = to_fixed(16.0);  test_a[0][2] = to_fixed(14.0);
+            test_a[1][0] = to_fixed(13.0);  test_a[1][1] = to_fixed(15.0);  test_a[1][2] = to_fixed(12.0);
+            test_a[2][0] = to_fixed(14.0);  test_a[2][1] = to_fixed(13.0);  test_a[2][2] = to_fixed(15.0);
+            test_a[3][0] = to_fixed(16.0);  test_a[3][1] = to_fixed(14.0);  test_a[3][2] = to_fixed(13.0);
+            
+            test_b[0][0] = to_fixed(15.0); test_b[0][1] = to_fixed(14.0);
+            test_b[1][0] = to_fixed(16.0); test_b[1][1] = to_fixed(15.0);
+            test_b[2][0] = to_fixed(14.0); test_b[2][1] = to_fixed(16.0);
+        end
+    endtask
+    
+    // Test Case 8: Mixed positive/negative with fractions
+    task init_test_case_8;
+        begin
+            $display("Test Case 8: Mixed positive/negative with fractions");
+            test_a[0][0] = to_fixed(2.75);  test_a[0][1] = to_fixed(-1.25); test_a[0][2] = to_fixed(0.5);
+            test_a[1][0] = to_fixed(-3.5);  test_a[1][1] = to_fixed(2.25);  test_a[1][2] = to_fixed(-0.75);
+            test_a[2][0] = to_fixed(1.125); test_a[2][1] = to_fixed(-2.5);  test_a[2][2] = to_fixed(3.375);
+            test_a[3][0] = to_fixed(-0.625);test_a[3][1] = to_fixed(1.875); test_a[3][2] = to_fixed(-1.5);
+            
+            test_b[0][0] = to_fixed(-1.5);  test_b[0][1] = to_fixed(2.25);
+            test_b[1][0] = to_fixed(3.125); test_b[1][1] = to_fixed(-1.75);
+            test_b[2][0] = to_fixed(-2.5);  test_b[2][1] = to_fixed(1.625);
+        end
+    endtask
+    
     // Compute expected result
     task compute_expected;
         begin
@@ -296,6 +377,41 @@ module matrix_mult_tb;
         
         // Test Case 3
         init_test_case_3();
+        compute_expected();
+        run_test();
+        
+        #100;
+        
+        // Test Case 4: Square matrix with negative values
+        init_test_case_4();
+        compute_expected();
+        run_test();
+        
+        #100;
+        
+        // Test Case 5: Single element matrices (1x1)
+        init_test_case_5();
+        compute_expected();
+        run_test();
+        
+        #100;
+        
+        // Test Case 6: Vector multiplication (row x column)
+        init_test_case_6();
+        compute_expected();
+        run_test();
+        
+        #100;
+        
+        // Test Case 7: Large values near overflow
+        init_test_case_7();
+        compute_expected();
+        run_test();
+        
+        #100;
+        
+        // Test Case 8: Mixed positive/negative with fractions
+        init_test_case_8();
         compute_expected();
         run_test();
         
