@@ -200,6 +200,11 @@ make systolic-v2          # Fixed version with corrected timing
 make systolic-3x3         # 3x3 matrix multiplication test
 make systolic-3x3-view    # Run 3x3 test and view waveforms
 make systolic-3x3-log     # Run 3x3 test with output logging
+make systolic-5x5         # 5x5 comprehensive test suite (5 test cases)
+make systolic-5x5-log     # Run 5x5 test with output logging
+make systolic-8x8         # 8x8 performance test (large-scale validation)
+make systolic-8x8-log     # Run 8x8 test with output logging
+make systolic-comprehensive # Run all systolic tests (3x3, 5x5, 8x8)
 make systolic-view        # Run default test and view waveforms
 make systolic-debug       # Simple 2x2 debug testbench
 
@@ -212,12 +217,23 @@ make help                # Show all available targets
 
 | Feature | Sequential | Systolic Array |
 |---------|------------|----------------|
-| **Cycles** | M×N×K (3072 for 4×3×2) | M+N+K-1 (8 for 4×3×2) |
+| **Cycles** | M×N×K | M+N+K-1 |
+| **3x3 Example** | 27 cycles | 8 cycles (3.4x speedup) |
+| **5x5 Example** | 125 cycles | 14 cycles (8.9x speedup) |
+| **8x8 Example** | 512 cycles | 22 cycles (23x speedup) |
 | **Throughput** | 1 MAC/cycle | Up to M×N MACs/cycle |
 | **Area** | Small, single MAC unit | Large, M×N PE array |
 | **Complexity** | Low | Medium-High |
 | **Power** | Low | High |
 | **Best Use** | Area-constrained | Performance-critical |
+
+### Test Coverage
+
+| Test Suite | Matrix Size | Test Cases | Coverage |
+|------------|-------------|------------|----------|
+| **Basic** | 3×3 | 2 test cases | Identity & general multiplication |
+| **Comprehensive** | 5×5 | 5 test cases | Identity, uniform, diagonal, pattern, large values |
+| **Performance** | 8×8 | 3 test cases | Large-scale validation with statistical analysis |
 
 ### Example Instantiation
 For transformer attention computation with context size 15:
