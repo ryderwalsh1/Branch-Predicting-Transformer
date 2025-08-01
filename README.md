@@ -252,4 +252,4 @@ sequential_matrix_mult #(.M(15), .N(64), .K(15)) attn_mult (...);
 
 ## License
 
-This project was developed for academic purposes as part of ECE475 at Princeton University.
+This project originated for academic purposes as part of ECE475 at Princeton University.
