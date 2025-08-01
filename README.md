@@ -27,14 +27,17 @@ This project implements a novel branch predictor using a transformer architectur
 ├── PIN Dumps/                           # Directory containing instruction traces
 │   ├── *_ins_trunc.out                  # Instruction trace files
 │   └── *_reg_trunc.out                  # Register dump files
+├── testbenches/                         # Verilog testbench directory
+│   ├── sequential_matrix_mult_tb.v      # Sequential multiplier testbench
+│   ├── systolic_matrix_mult_tb.v        # Systolic array testbench (4x3×3x2)
+│   ├── systolic_matrix_mult_3x3_tb.v    # 3x3 systolic array testbench
+│   └── systolic_debug.v                 # Simple 2x2 debug testbench
 ├── sequential_matrix_mult.v             # Sequential matrix multiplier module
-├── sequential_matrix_mult_tb.v          # Testbench for sequential multiplier
-├── systolic_matrix_mult.v               # Systolic array implementation
-├── systolic_matrix_mult_v2.v            # Improved systolic array (simplified)
-├── systolic_matrix_mult_tb.v            # Testbench for systolic array
-├── systolic_debug.v                     # Debug testbench for systolic array
+├── systolic_matrix_mult.v               # Original systolic array implementation
+├── systolic_matrix_mult_v2.v            # Fixed systolic array (timing corrected)
 ├── Makefile                             # Build automation for all Verilog modules
 ├── run_with_log.sh                      # Output logging wrapper script
+├── template.gtkw                        # GTKWave template for waveform viewing
 └── README.md                            # This file
 ```
 
@@ -192,10 +195,13 @@ A parallel processing architecture for high-throughput matrix multiplication:
 #### Usage
 ```bash
 # Systolic array implementations
-make systolic             # Original systolic implementation
-make systolic-v2          # Improved version with simplified control
-make systolic-view        # Run and view waveforms
-make systolic-debug       # Debug testbench for development
+make systolic             # Original systolic implementation (4x3×3x2)
+make systolic-v2          # Fixed version with corrected timing
+make systolic-3x3         # 3x3 matrix multiplication test
+make systolic-3x3-view    # Run 3x3 test and view waveforms
+make systolic-3x3-log     # Run 3x3 test with output logging
+make systolic-view        # Run default test and view waveforms
+make systolic-debug       # Simple 2x2 debug testbench
 
 # General targets
 make clean               # Remove all generated files
@@ -232,7 +238,11 @@ sequential_matrix_mult #(.M(15), .N(64), .K(15)) attn_mult (...);
 - Limited to sequences of 20 instructions
 - Requires pre-training on representative workloads
 - Memory footprint (~1MB) larger than traditional predictors
-- Systolic array implementation needs debugging (column 0 results incorrect)
+
+### Hardware Implementation Status
+
+✅ **Sequential Matrix Multiplier**: Fully functional with comprehensive test coverage  
+✅ **Systolic Array**: Fully functional - all test cases pass including 3x3 matrix multiplication
 
 ## References
 

@@ -1,11 +1,12 @@
 #!/bin/bash
 
 # Script to run Verilog simulation and capture output
-# Usage: ./run_with_log.sh [output_filename]
+# Usage: ./run_with_log.sh [output_filename] [vvp_file]
 
 OUTPUT_FILE=${1:-"matrix_mult_results.txt"}
+VVP_FILE=${2:-"sequential_matrix_mult_tb.vvp"}
 TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
-TIMESTAMPED_FILE="matrix_mult_results_${TIMESTAMP}.txt"
+TIMESTAMPED_FILE="${OUTPUT_FILE%.txt}_${TIMESTAMP}.txt"
 
 echo "Running matrix multiplication testbench..."
 echo "Output will be saved to: $OUTPUT_FILE"
@@ -13,7 +14,7 @@ echo "Timestamped copy will be saved to: $TIMESTAMPED_FILE"
 echo
 
 # Run the simulation and capture output
-vvp matrix_mult_tb.vvp 2>&1 | tee "$OUTPUT_FILE"
+vvp "$VVP_FILE" 2>&1 | tee "$OUTPUT_FILE"
 
 # Create a timestamped copy
 cp "$OUTPUT_FILE" "$TIMESTAMPED_FILE"

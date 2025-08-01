@@ -207,7 +207,7 @@ module systolic_matrix_mult #(
                 
                 COMPUTE: begin
                     compute_enable <= 1;
-                    if (cycle_count < M + N + K - 1) begin
+                    if (cycle_count < M + N + K - 1 && compute_enable) begin
                         cycle_count <= cycle_count + 1;
                     end
                 end
